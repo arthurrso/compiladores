@@ -2,7 +2,12 @@
 
 package br.com.arthurrso.lexicalanalyzer;
 
-import static br.com.arthurrso.lexicalanalyzer.Token.*;
+import static br.com.arthurrso.lexicalanalyzer.Token.BOOLEANO;
+import static br.com.arthurrso.lexicalanalyzer.Token.COMENTARIO;
+import static br.com.arthurrso.lexicalanalyzer.Token.ID;
+import static br.com.arthurrso.lexicalanalyzer.Token.NUMERO;
+import static br.com.arthurrso.lexicalanalyzer.Token.OPERADOR;
+import static br.com.arthurrso.lexicalanalyzer.Token.PALAVRA;
 
 
 /**
@@ -10,7 +15,7 @@ import static br.com.arthurrso.lexicalanalyzer.Token.*;
  * <a href="http://www.jflex.de/">JFlex</a> 1.6.1
  * from the specification file <tt>C:/UFCG/Compiladores/compiladores/src/main/java/br/com/arthurrso/lexicalanalyzer/language.lex</tt>
  */
-public class Lexical implements java_cup.runtime.Scanner {
+public class Lexical {
 
   /** This character denotes the end of file */
   public static final int YYEOF = -1;
@@ -516,25 +521,13 @@ public String lexeme;
 
 
   /**
-   * Contains user EOF-code, which will be executed exactly once,
-   * when the end of file is reached
-   */
-  private void zzDoEOF() throws java.io.IOException {
-    if (!zzEOFDone) {
-      zzEOFDone = true;
-      yyclose();
-    }
-  }
-
-
-  /**
    * Resumes scanning until the next regular expression is matched,
    * the end of input is encountered or an I/O-Error occurs.
    *
    * @return      the next token
    * @exception   java.io.IOException  if any I/O-Error occurs
    */
-  public Token next_token() throws java.io.IOException {
+  public Token yylex() throws java.io.IOException {
     int zzInput;
     int zzAction;
 
@@ -670,8 +663,7 @@ public String lexeme;
 
       if (zzInput == YYEOF && zzStartRead == zzCurrentPos) {
         zzAtEOF = true;
-            zzDoEOF();
-          { return new java_cup.runtime.Symbol(sym.EOF); }
+        return null;
       }
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
