@@ -44,13 +44,15 @@ IGNORE = [\n|\s|\t\r]
 (true | false)      {lexeme=yytext(); return BOOLEANO;}
 
 /* Operadores */
-("+" | "&" |  "+=" | "&=" |  "&&" | "==" | "!=" | "(" | ")"
-| "-" | "|" |  "-=" | "|=" |  "||" | "<" | "<=" | "[" | "]"
-| "*" | "^" |  "*=" | "^=" |  "<-" | ">" |  ">=" | "{" | "}"
-| "/" | "<<" | "/=" | "<<=" | "++" | "=" |  ":=" | "," | ";"
-| "%" | ">>" | "%=" | ">>=" | "--" | "!" |  "..."| "." | ":"
+( "&" |  "&=" |  "&&" | "==" | "!=" | "(" | ")"
+| "|" | "|=" |  "||" | "<" | "<=" | "[" | "]"
+| "^" |  "^=" |  "<-" | ">" |  ">=" | "{" | "}"
+| "<<" | "<<=" | "++" | "=" |  ":=" | "," | ";"
+| "%" | ">>" | "%=" | ">>=" | "!" |  "..."| "." | ":"
 | "&^" | "&^=") {lexeme = yytext(); return OPERADOR;}
 
+
+("+" | "+=" | "-" | "*" | "/" | "--" | "-=" | "*=" | "/=") {lexeme = yytext(); return OPERADOR_ARIT;}
 
 /* NUMBER*/
 
@@ -61,7 +63,7 @@ IGNORE = [\n|\s|\t\r]
 | int64 | float32    
 | float64 | complex64  
 | complex128 | byte
-| rune )
+| rune ) {lexeme = yytext(); return NUMBER;}
     
 {LETTER}({LETTER}|{DIGIT})* {lexeme=yytext(); return ID;}
  ("(-"{DIGIT}+")")|{DIGIT}+ {lexeme=yytext(); return NUMERO;}
