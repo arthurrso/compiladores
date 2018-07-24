@@ -62,7 +62,7 @@ non terminal parameter, parameter_e_aux, parameter_e, error1;
 
 start with compilation_unit;
 
-//#############package##############//
+/* Package - BEGIN */
 compilation_unit ::= package_statement_e_aux:p
                                 {:if(p != null){
                                      System.out.println("PACKAGE RECONIZED: "+ p);
@@ -72,8 +72,8 @@ package_statement_e_aux ::= package_statement:p {:RESULT = p;:};
 
 package_statement ::= PACKAGE:p SEMICOLON
                                      {: System.out.println("PACKAGE RECONIZED: "+ p );:};
-
-//#############end package##############//
+                                     
+/* Package - END */
 
 
 literal ::=STRING_LITERAL:sl 	{: RESULT = new Variable(sl.toString(), null, "string_literal", sl); :}
@@ -85,7 +85,7 @@ type ::= BOOLEAN:bl 	{: RESULT = bl; :}
 	| STRING:s	{: RESULT = s; :};
 
 
-//############# variables declarations ##############//
+/* Variable Declaration - BEGIN */
 variable_declaration ::= type:t variable_declarators:v SEMICOLON
                                       {:RESULT = new Variable(v.toString(), null, t.toString(), v) ;
                                          System.out.println("Variable declareted: " + v);
@@ -111,39 +111,32 @@ variable_initializers ::= variable_initializers:v COMMA variable_initializer
 			   {:RESULT = v;:};
 variable_initializer ::= EQUAL expression:e {:RESULT = e;:}
 			| EQUAL LBRACE variable_initializers RBRACE | EQUAL LBRACE RBRACE;
-//############# end variables declarations ##############//
+/* Variable Declaration - END */
 
-//###################################################################################//
-//###################################################################################//
+/* Field Declaration - BEGIN */
 
 field_declaration_e_aux ::= field_declaration_e:f {:RESULT = f;:};
 field_declaration_e ::=	field_declaration:f {:RESULT = f;:} | field_declaration_e field_declaration;
 
 field_declaration ::= variable_declaration | error1 ;
 
+/* Field Declaration - END */
 
+/* Bracks - BEGIN */
 bracks_e_aux ::= bracks_e_aux LBRACK RBRACK;
+/* Bracks - END*/
 
+/* Expressions Declaration - BEGIN */
 expression_e_aux ::= expression:e {:RESULT = e;:};
 
 expression ::= numeric_expression:n {:RESULT = n;:}|  expression LPAREN expression RPAREN;
 
-numeric_expression ::= testing_expression:te {:RESULT = te;:}//{:System.out.println("Testing: "+te);:}//{:RESULT = te;:}
+numeric_expression ::= testing_expression:te {:RESULT = te;:}
 		| numeric_expression:e1 PLUS:p testing_expression:e2  {:System.out.println(RESULT + "  ");:}
-//		{: RESULT = SemanticAnalyzer.checkAdditiveExp(e2.toString(), p, e1);:}
-
 		| numeric_expression:e1 MINUS:m testing_expression:e2
-//		{: RESULT = SemanticAnalyzer.checkAdditiveExp(e1.toString(), m, e2); :}
-
 		| numeric_expression:e1 MULT:m testing_expression:e2
-//		{: RESULT = SemanticAnalyzer.checkMultiplicativeExp(e1.toString(), m, e2); :}
-
 		| numeric_expression:e1 DIV:d testing_expression:e2
-//		{: RESULT = SemanticAnalyzer.checkMultiplicativeExp(e1.toString(), d, e2); :}
-
 		| numeric_expression:e1 MOD:m testing_expression:e2
-//		{: RESULT = SemanticAnalyzer.checkMultiplicativeExp(e1.toString(), m, e2); :}
-
 		| numeric_expression DIVEQ testing_expression
 		| numeric_expression PLUSEQ testing_expression
 		| numeric_expression MINUSEQ testing_expression
@@ -152,17 +145,9 @@ numeric_expression ::= testing_expression:te {:RESULT = te;:}//{:System.out.prin
 
 testing_expression ::= logical_expression:le {:RESULT = le;:}
 		| testing_expression:e1 GREATER:g logical_expression:e2
-//		{: RESULT = SemanticAnalyzer.checkRelationalExp(e1.toString(), g, e2); :}
-
 		| testing_expression:e1 LESS:l logical_expression:e2
-//		{: RESULT = SemanticAnalyzer.checkRelationalExp(e1.toString(), l, e2); :}
-
 		| testing_expression:e1 GTEQ:g logical_expression:e2
-//		{: RESULT = SemanticAnalyzer.checkRelationalExp(e1.toString(), g, e2); :}
-
 		| testing_expression:e1 LTEQ:l logical_expression:e2
-//		{: RESULT = SemanticAnalyzer.checkRelationalExp(e1.toString(), l, e2); :}
-
 		| testing_expression EQEQ logical_expression
 		| testing_expression NOTEQ logical_expression;
 
@@ -199,14 +184,21 @@ expression_end  ::= identifier:id {:RESULT = new Variable(id.toString(), null, "
 		 | parentheses_expression
 		 | LBRACK expression RBRACK | literal:l {:RESULT = l;:};
 
+/* Expressions Declaration - END */
 
+/* Args - BEGIN */
 argslist_e_aux ::= arglist;
 
 arglist ::= expression | arglist COMMA expression;
 
+/* Args - END */
 
+/* Parentheses - BEGIN */
 parentheses_expression ::= LPAREN expression RPAREN;
 
+/* Parentheses - END*/
+
+/* Statements - BEGIN */
 statement ::= statement_variable_declaration
 		| if_else_statement
 		| if_statement
@@ -232,55 +224,61 @@ statement_within_braces ::= statement;
 
 no_statement ::= SEMICOLON;
 
+/* Statements - END */
+
 return_expression ::= RETURN expression_e_aux SEMICOLON;
 
-//#############condição##############//
+/* Conditions - BEGIN */
 if_else_statement ::= IF LPAREN expression RPAREN if_nested_statement ELSE statement;
 if_nested_statement ::= partial_statement_end;
 if_statement ::= IF LPAREN expression RPAREN statement;
 
-//#############end condição##############//
+/* Conditions - END */
 
 
-//#############Laço for##############//
+/* For loop - BEGIN */
 for_statement ::= FOR LPAREN for_statement_begin for_statement_others SEMICOLON for_statement_others RPAREN statement;
 for_statement_begin ::= SEMICOLON | variable_declaration;
 for_statement_others ::= expression_e_aux;
-//#############end Laço for##############//
 
 
-//#############switch case##############//
+/* For loop - END*/
+
+
+/* Switch / Case - BEGIN  <scope D>*/
+
 switch_statement ::= SWITCH expression LBRACE switch_cases_default RBRACE | SWITCH expression LBRACE RBRACE;
 switch_cases_default ::= case_sentences | default_sentences | switch_cases_default | statement;
 case_sentences ::= case_sentence | switch_cases_default case_sentence;
 case_sentence ::= CASE expression COLON;
 default_sentences ::= default_sentence | switch_cases_default default_sentence;
 default_sentence ::= DEFAULT COLON;
-//############# end switch case##############//
 
-//###################################################################################//
-//###################################################################################//
+/* Switch / Case - END <scope D>*/
 
+
+/* Parameters  - BEGIN */
 parameter_e_aux ::= parameter_e;
 
 parameter_e ::= parameter | parameter_e COMMA parameter;
 
+/* Parameters - END */
+
+/* Variable Declaration - BEGIN */
 statement_variable_declaration ::= type:t variable_declarators:v SEMICOLON
 		{:RESULT = new Variable(v.toString(), null, t.toString(), v);
                                  System.out.println("Variable declareted: " + v);
                           :}
 		| variable_declarator_this_super SEMICOLON
-
-
-	//	| variable_declarators:v SEMICOLON
-	//	{: System.err.println("Variable not declareted, name: " + v);:}
 		| EQUAL expression:e SEMICOLON
 		{: System.err.println("SYNTACTIC ERROR: Missing package name or id at:  " + e );:}
-	//	| type:t variable_declarators:v
-	//	{: System.err.println("Missing semicolon at " + v);:}
 
 		;
-		
-//################################## errors ############################
+/* Variable Declaration - END */
+
+/* Error - BEGIN */
 error1 ::= BREAK SEMICOLON {:
               System.err.println("SYNTACTIC ERROR: Break statement found, cannot use 'break' without an iteration");:};
+              
+ /* Error - END */
+  
