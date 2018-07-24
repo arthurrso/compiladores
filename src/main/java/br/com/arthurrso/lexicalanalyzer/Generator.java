@@ -9,8 +9,7 @@ public class Generator {
 
         String rootPath = Paths.get("").toAbsolutePath().toString();
         String subPath = "/src/main/java/br/com/arthurrso/lexicalanalyzer/";
-
-//        String file = rootPath + subPath + "language.lex";
+        
         String file = rootPath + subPath + "language.lex";
 
         File sourceCode = new File(file);
