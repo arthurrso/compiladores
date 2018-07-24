@@ -57,7 +57,7 @@ public class Parser extends java_cup.runtime.lr_parser {
     "\021\005\000\002\022\003\000\002\022\006\000\002\023" +
     "\003\000\002\023\007\000\002\023\004\000\002\023\004" +
     "\000\002\023\004\000\002\023\004\000\002\023\004\000" +
-    "\002\070\002\000\002\024\005\000\002\024\005\000\002" +
+    "\002\024\003\000\002\024\003\000\002\024\005\000\002" +
     "\024\003\000\002\014\003\000\002\012\003\000\002\012" +
     "\005\000\002\027\005\000\002\031\003\000\002\031\003" +
     "\000\002\031\003\000\002\031\003\000\002\031\003\000" +
@@ -71,7 +71,7 @@ public class Parser extends java_cup.runtime.lr_parser {
     "\000\002\042\003\000\002\042\003\000\002\042\004\000" +
     "\002\044\003\000\002\044\004\000\002\043\005\000\002" +
     "\045\003\000\002\045\004\000\002\046\004\000\002\065" +
-    "\003\000\002\066\003\000\002\066\005\000\002\062\004" +
+    "\003\000\002\066\003\000\002\066\005\000\002\062\005" +
     "\000\002\062\004\000\002\062\005\000\002\067\004" });
 
   /** Access to production table. */
@@ -1017,28 +1017,23 @@ class CUP$Parser$actions {
           return CUP$Parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 74: // NT$0 ::= 
+          case 74: // expression_end ::= identifier 
             {
               Object RESULT =null;
 		int idleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
 		Object id = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-RESULT = new Variable(id.toString(), null, "integer_literal", id);
-              CUP$Parser$result = parser.getSymbolFactory().newSymbol("NT$0",54, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+		RESULT = new Variable(id.toString(), null, "integer_literal", id);
+              CUP$Parser$result = parser.getSymbolFactory().newSymbol("expression_end",18, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 75: // expression_end ::= identifier NT$0 parentheses_expression 
+          case 75: // expression_end ::= parentheses_expression 
             {
               Object RESULT =null;
-              // propagate RESULT from NT$0
-                RESULT = (Object) ((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
-		int idleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
-		int idright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
-		Object id = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
 
-              CUP$Parser$result = parser.getSymbolFactory().newSymbol("expression_end",18, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+              CUP$Parser$result = parser.getSymbolFactory().newSymbol("expression_end",18, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
 
@@ -1460,16 +1455,19 @@ RESULT = new Variable(id.toString(), null, "integer_literal", id);
           return CUP$Parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 122: // statement_variable_declaration ::= variable_declarators SEMICOLON 
+          case 122: // statement_variable_declaration ::= type variable_declarators SEMICOLON 
             {
               Object RESULT =null;
+		int tleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
+		int tright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
+		Object t = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
 		int vleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
 		int vright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
 		Object v = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
-		RESULT = new Variable(v.toString(), null, v) ;
+		RESULT = new Variable(v.toString(), null, t.toString(), v);
                                  System.out.println("Variable declareted: " + v);
                           
-              CUP$Parser$result = parser.getSymbolFactory().newSymbol("statement_variable_declaration",48, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+              CUP$Parser$result = parser.getSymbolFactory().newSymbol("statement_variable_declaration",48, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
 

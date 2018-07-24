@@ -196,8 +196,9 @@ creating_expression ::= expression_end:e {:RESULT = e;:}
 		| creating_expression MINUSMINUS;
 
 expression_end  ::= identifier:id {:RESULT = new Variable(id.toString(), null, "integer_literal", id);:}
-		  parentheses_expression
+		 | parentheses_expression
 		 | LBRACK expression RBRACK | literal:l {:RESULT = l;:};
+
 
 argslist_e_aux ::= arglist;
 
@@ -264,8 +265,8 @@ parameter_e_aux ::= parameter_e;
 
 parameter_e ::= parameter | parameter_e COMMA parameter;
 
-statement_variable_declaration ::= variable_declarators:v SEMICOLON
-		{:RESULT = new Variable(v.toString(), null, v) ;
+statement_variable_declaration ::= type:t variable_declarators:v SEMICOLON
+		{:RESULT = new Variable(v.toString(), null, t.toString(), v);
                                  System.out.println("Variable declareted: " + v);
                           :}
 		| variable_declarator_this_super SEMICOLON

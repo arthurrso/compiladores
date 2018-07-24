@@ -3,8 +3,7 @@
 package br.com.arthurrso.lexicalanalyzer;
 
 
-import java_cup.runtime.*;
-import br.com.arthurrso.*;
+import java_cup.runtime.Symbol;
 
 
 /**
