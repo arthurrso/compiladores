@@ -34,7 +34,7 @@ public class Parser extends java_cup.runtime.lr_parser {
   /** Production table. */
   protected static final short _production_table[][] = 
     unpackFromStrings(new String[] {
-    "\000\176\000\002\002\004\000\002\002\003\000\002\004" +
+    "\000\177\000\002\002\004\000\002\002\003\000\002\004" +
     "\003\000\002\005\004\000\002\030\003\000\002\030\003" +
     "\000\002\030\003\000\002\006\003\000\002\006\003\000" +
     "\002\006\003\000\002\054\005\000\002\054\004\000\002" +
@@ -67,12 +67,13 @@ public class Parser extends java_cup.runtime.lr_parser {
     "\000\002\051\004\000\002\052\003\000\002\035\003\000" +
     "\002\026\005\000\002\032\011\000\002\036\003\000\002" +
     "\037\007\000\002\040\012\000\002\047\003\000\002\047" +
-    "\003\000\002\050\003\000\002\041\011\000\002\041\010" +
-    "\000\002\042\003\000\002\042\003\000\002\042\004\000" +
-    "\002\044\003\000\002\044\004\000\002\043\005\000\002" +
-    "\045\003\000\002\045\004\000\002\046\004\000\002\065" +
-    "\003\000\002\066\003\000\002\066\005\000\002\062\005" +
-    "\000\002\062\004\000\002\062\005\000\002\067\004" });
+    "\003\000\002\050\003\000\002\041\007\000\002\041\006" +
+    "\000\002\042\003\000\002\042\003\000\002\042\003\000" +
+    "\002\042\003\000\002\044\003\000\002\044\004\000\002" +
+    "\043\005\000\002\045\003\000\002\045\004\000\002\046" +
+    "\004\000\002\065\003\000\002\066\003\000\002\066\005" +
+    "\000\002\062\005\000\002\062\004\000\002\062\005\000" +
+    "\002\067\004" });
 
   /** Access to production table. */
   public short[][] production_table() {return _production_table;}
@@ -1329,20 +1330,20 @@ class CUP$Parser$actions {
           return CUP$Parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 108: // switch_statement ::= SWITCH LPAREN expression RPAREN LBRACE switch_cases_default RBRACE 
+          case 108: // switch_statement ::= SWITCH expression LBRACE switch_cases_default RBRACE 
             {
               Object RESULT =null;
 
-              CUP$Parser$result = parser.getSymbolFactory().newSymbol("switch_statement",31, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-6)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+              CUP$Parser$result = parser.getSymbolFactory().newSymbol("switch_statement",31, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-4)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 109: // switch_statement ::= SWITCH LPAREN expression RPAREN LBRACE RBRACE 
+          case 109: // switch_statement ::= SWITCH expression LBRACE RBRACE 
             {
               Object RESULT =null;
 
-              CUP$Parser$result = parser.getSymbolFactory().newSymbol("switch_statement",31, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-5)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+              CUP$Parser$result = parser.getSymbolFactory().newSymbol("switch_statement",31, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
 
@@ -1365,16 +1366,25 @@ class CUP$Parser$actions {
           return CUP$Parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 112: // switch_cases_default ::= switch_cases_default statement 
+          case 112: // switch_cases_default ::= switch_cases_default 
             {
               Object RESULT =null;
 
-              CUP$Parser$result = parser.getSymbolFactory().newSymbol("switch_cases_default",32, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+              CUP$Parser$result = parser.getSymbolFactory().newSymbol("switch_cases_default",32, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 113: // case_sentences ::= case_sentence 
+          case 113: // switch_cases_default ::= statement 
+            {
+              Object RESULT =null;
+
+              CUP$Parser$result = parser.getSymbolFactory().newSymbol("switch_cases_default",32, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+            }
+          return CUP$Parser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 114: // case_sentences ::= case_sentence 
             {
               Object RESULT =null;
 
@@ -1383,7 +1393,7 @@ class CUP$Parser$actions {
           return CUP$Parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 114: // case_sentences ::= switch_cases_default case_sentence 
+          case 115: // case_sentences ::= switch_cases_default case_sentence 
             {
               Object RESULT =null;
 
@@ -1392,7 +1402,7 @@ class CUP$Parser$actions {
           return CUP$Parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 115: // case_sentence ::= CASE expression COLON 
+          case 116: // case_sentence ::= CASE expression COLON 
             {
               Object RESULT =null;
 
@@ -1401,7 +1411,7 @@ class CUP$Parser$actions {
           return CUP$Parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 116: // default_sentences ::= default_sentence 
+          case 117: // default_sentences ::= default_sentence 
             {
               Object RESULT =null;
 
@@ -1410,7 +1420,7 @@ class CUP$Parser$actions {
           return CUP$Parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 117: // default_sentences ::= switch_cases_default default_sentence 
+          case 118: // default_sentences ::= switch_cases_default default_sentence 
             {
               Object RESULT =null;
 
@@ -1419,7 +1429,7 @@ class CUP$Parser$actions {
           return CUP$Parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 118: // default_sentence ::= DEFAULT COLON 
+          case 119: // default_sentence ::= DEFAULT COLON 
             {
               Object RESULT =null;
 
@@ -1428,7 +1438,7 @@ class CUP$Parser$actions {
           return CUP$Parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 119: // parameter_e_aux ::= parameter_e 
+          case 120: // parameter_e_aux ::= parameter_e 
             {
               Object RESULT =null;
 
@@ -1437,7 +1447,7 @@ class CUP$Parser$actions {
           return CUP$Parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 120: // parameter_e ::= parameter 
+          case 121: // parameter_e ::= parameter 
             {
               Object RESULT =null;
 
@@ -1446,7 +1456,7 @@ class CUP$Parser$actions {
           return CUP$Parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 121: // parameter_e ::= parameter_e COMMA parameter 
+          case 122: // parameter_e ::= parameter_e COMMA parameter 
             {
               Object RESULT =null;
 
@@ -1455,7 +1465,7 @@ class CUP$Parser$actions {
           return CUP$Parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 122: // statement_variable_declaration ::= type variable_declarators SEMICOLON 
+          case 123: // statement_variable_declaration ::= type variable_declarators SEMICOLON 
             {
               Object RESULT =null;
 		int tleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
@@ -1472,7 +1482,7 @@ class CUP$Parser$actions {
           return CUP$Parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 123: // statement_variable_declaration ::= variable_declarator_this_super SEMICOLON 
+          case 124: // statement_variable_declaration ::= variable_declarator_this_super SEMICOLON 
             {
               Object RESULT =null;
 
@@ -1481,7 +1491,7 @@ class CUP$Parser$actions {
           return CUP$Parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 124: // statement_variable_declaration ::= EQUAL expression SEMICOLON 
+          case 125: // statement_variable_declaration ::= EQUAL expression SEMICOLON 
             {
               Object RESULT =null;
 		int eleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
@@ -1493,7 +1503,7 @@ class CUP$Parser$actions {
           return CUP$Parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 125: // error1 ::= BREAK SEMICOLON 
+          case 126: // error1 ::= BREAK SEMICOLON 
             {
               Object RESULT =null;
 		
