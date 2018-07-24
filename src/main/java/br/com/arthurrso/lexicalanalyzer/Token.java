@@ -1,5 +1,7 @@
-package br.com.arthurrso.lexicalanalyzer;
-
-public enum Token {
-	OPERADOR, PALAVRA, COMENTARIO, ID, NUMERO, BOOLEANO, NUMERICOS, OPERADOR_ARIT, NUMBER
-}
+//package br.com.arthurrso.lexicalanalyzer;
+//
+//public enum Token {
+//	OPERADOR, PALAVRA, COMENTARIO, ID, NUMERO, BOOLEANO, NUMERICOS, OPERADOR_ARIT, NUMBER,
+//	VARIABLE, ASSIGNMENT, STRING, CALL_FUNCTION, FUNCTION_PARAMS, IGNORE, FUNCTION, INTEGER
+//	,PROGRAM
+//}

@@ -32,5 +32,6 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/arthur.r.oliveira/.m2/repository/org/netbeans/external/java-cup-11a/RELEASE712/java-cup-11a-RELEASE712.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
