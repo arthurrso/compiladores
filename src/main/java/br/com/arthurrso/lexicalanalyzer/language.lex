@@ -116,22 +116,20 @@ IGNORE = [\n|\s|\t\r]
   "%="            {return Symbol(Sym.MODEQ, new String(yytext())); }
   "<<="           {return Symbol(Sym.LSHIFTEQ, new String(yytext())); }
   ">>="           {return Symbol(Sym.RSHIFTEQ, new String(yytext())); }
-  "..."           {return Symbol(Sym.RSHIFTEQ, new String(yytext())); }
-  "&^="           {return Symbol(Sym.RSHIFTEQ, new String(yytext())); }
-  "&^"           {return Symbol(Sym.RSHIFTEQ, new String(yytext())); }
-  ";"           {return Symbol(Sym.RSHIFTEQ, new String(yytext())); }
-  ":="           {return Symbol(Sym.RSHIFTEQ, new String(yytext())); }
-  "<-"           {return Symbol(Sym.RSHIFTEQ, new String(yytext())); }
+  "..."           {return Symbol(Sym.ELLIPSIS, new String(yytext())); }
+  "&^="           {return Symbol(Sym.ANDNOTEQ, new String(yytext())); }
+  "&^"           {return Symbol(Sym.ANDNOT, new String(yytext())); }
+  ";"           {return Symbol(Sym.SEMICOLON, new String(yytext())); }
+  ":="           {return Symbol(Sym.SHORTDECLARATION, new String(yytext())); }
+  "<-"           {return Symbol(Sym.RECIEVER, new String(yytext())); }
+  ","             {return Symbol(Sym.COMMA, new String(yytext()));}
+  "."             {return Symbol(Sym.DOT, new String(yytext()));}
   "("             {return Symbol(Sym.LPAREN, new String(yytext()));}
   ")"             {return Symbol(Sym.RPAREN, new String(yytext()));}
   "{"             {return Symbol(Sym.LBRACE, new String(yytext()));}
   "}"             {return Symbol(Sym.RBRACE, new String(yytext()));}
   "["             {return Symbol(Sym.LBRACK, new String(yytext()));}
   "]"             {return Symbol(Sym.RBRACK, new String(yytext()));}
-  ";"             {return Symbol(Sym.SEMICOLON, new String(yytext()));}
-  ","             {return Symbol(Sym.COMMA, new String(yytext()));}
-  "."             {return Symbol(Sym.DOT, new String(yytext()));}
-
 
 /* Tipos primitivos da linguagem GO */
   "bool"       {return Symbol(Sym.BOOLEAN, new String(yytext())); }
