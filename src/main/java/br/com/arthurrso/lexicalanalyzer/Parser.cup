@@ -250,8 +250,8 @@ for_statement_others ::= expression_e_aux;
 
 
 //#############switch case##############//
-switch_statement ::= SWITCH LPAREN expression RPAREN LBRACE switch_cases_default RBRACE | SWITCH LPAREN expression RPAREN LBRACE RBRACE;
-switch_cases_default ::= case_sentences | default_sentences | switch_cases_default statement;
+switch_statement ::= SWITCH expression LBRACE switch_cases_default RBRACE | SWITCH expression LBRACE RBRACE;
+switch_cases_default ::= case_sentences | default_sentences | switch_cases_default | statement;
 case_sentences ::= case_sentence | switch_cases_default case_sentence;
 case_sentence ::= CASE expression COLON;
 default_sentences ::= default_sentence | switch_cases_default default_sentence;
