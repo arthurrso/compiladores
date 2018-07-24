@@ -116,10 +116,10 @@ IGNORE = [\n|\s|\t\r]
   ">>="           {return Symbol(Sym.RSHIFTEQ, new String(yytext())); }
   "..."           {return Symbol(Sym.ELLIPSIS, new String(yytext())); }
   "&^="           {return Symbol(Sym.ANDNOTEQ, new String(yytext())); }
-  "&^"           {return Symbol(Sym.ANDNOT, new String(yytext())); }
-  ";"           {return Symbol(Sym.SEMICOLON, new String(yytext())); }
-  ":="           {return Symbol(Sym.SHORTDECLARATION, new String(yytext())); }
-  "<-"           {return Symbol(Sym.RECIEVER, new String(yytext())); }
+  "&^"            {return Symbol(Sym.ANDNOT, new String(yytext())); }
+  ";"             {return Symbol(Sym.SEMICOLON, new String(yytext())); }
+  ":="            {return Symbol(Sym.SHORTDECLARATION, new String(yytext())); }
+  "<-"            {return Symbol(Sym.RECIEVER, new String(yytext())); }
   ","             {return Symbol(Sym.COMMA, new String(yytext()));}
   "."             {return Symbol(Sym.DOT, new String(yytext()));}
   "("             {return Symbol(Sym.LPAREN, new String(yytext()));}
