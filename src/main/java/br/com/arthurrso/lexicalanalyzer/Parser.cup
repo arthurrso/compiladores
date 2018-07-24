@@ -3,6 +3,7 @@ package br.com.arthurrso.lexicalanalyzer;
 import java_cup.runtime.*;
 import java.util.*;
 import java.io.*;
+import br.com.arthurrso.semantical.Variable;
 
 
 parser code {:
@@ -38,7 +39,7 @@ terminal SELECT, STRUCT, FALLTHROUGH;
 terminal STRING_LITERAL;
 
 // nao terminais
-non terminal compilation_unit, package_statement_e_aux;
+non terminal compilation_unit, identifier, package_statement_e_aux;
 non terminal package_statement;
 non terminal type;
 non terminal field_declaration_e_aux;
@@ -63,15 +64,11 @@ start with compilation_unit;
 
 //#############package##############//
 compilation_unit ::= package_statement_e_aux:p
-                                {:if(p != null && i != null){
-                                     System.out.println("PACKAGE RECONIZED: "+ p + "   IMPORT RECONIZED: "+i);
-                                }else if(p== null &&  i != null){
-                                     System.out.println("IMPORT RECONIZED: "+ i) ;
-                                }else if(p != null &&  i == null){
-                                     System.out.println("PACKAGE RECONIZED: "+ p );
-                               };:};
+                                {:if(p != null){
+                                     System.out.println("PACKAGE RECONIZED: "+ p);
+                                };:};
 
-package_statement_e_aux ::= | package_statement:p {:RESULT = p;:};
+package_statement_e_aux ::= package_statement:p {:RESULT = p;:};
 
 package_statement ::= PACKAGE:p SEMICOLON
                                      {: System.out.println("PACKAGE RECONIZED: "+ p );:};
@@ -99,7 +96,7 @@ variable_declaration ::= type:t variable_declarators:v SEMICOLON
 
 variable_declarators ::= variable_declarator:v  {:RESULT = v;:} | variable_declarators COMMA variable_declarator ;
 
-variable_declarator ::= bracks_e_aux variable_initializers_e_aux:var
+variable_declarator ::= identifier:id bracks_e_aux variable_initializers_e_aux:var
                                       {:RESULT = id;
                                       if(var != null){
                                              System.out.println("Variable initialized: " + id);
@@ -198,7 +195,7 @@ creating_expression ::= expression_end:e {:RESULT = e;:}
 		| creating_expression PLUSPLUS
 		| creating_expression MINUSMINUS;
 
-expression_end ::= {:RESULT = new Variable(id.toString(), null, "integer_literal", id);:}
+expression_end  ::= identifier:id {:RESULT = new Variable(id.toString(), null, "integer_literal", id);:}
 		  parentheses_expression
 		 | LBRACK expression RBRACK | literal:l {:RESULT = l;:};
 
@@ -267,10 +264,8 @@ parameter_e_aux ::= parameter_e;
 
 parameter_e ::= parameter | parameter_e COMMA parameter;
 
-
-
-statement_variable_declaration ::= type:t variable_declarators:v SEMICOLON
-		{:RESULT = new Variable(v.toString(), null, t.toString(), v) ;
+statement_variable_declaration ::= variable_declarators:v SEMICOLON
+		{:RESULT = new Variable(v.toString(), null, v) ;
                                  System.out.println("Variable declareted: " + v);
                           :}
 		| variable_declarator_this_super SEMICOLON

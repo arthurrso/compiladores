@@ -4,6 +4,7 @@ package br.com.arthurrso.lexicalanalyzer;
 
 
 import java_cup.runtime.*;
+import br.com.arthurrso.*;
 
 
 /**
