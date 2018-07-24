@@ -2,11 +2,9 @@ package br.com.arthurrso.lexicalanalyzer;
 
 
 import java_cup.runtime.*;
-import java_cup.runtime.Sym;
 
 %%
 
-%cupsym Sym
 %cup
 %public
 %class Lexical
