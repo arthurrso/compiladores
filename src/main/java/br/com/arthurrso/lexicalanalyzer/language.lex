@@ -23,6 +23,7 @@ FUNCTION = &{LETTER}+
 FUNCTION_PARAMS = \^{LETTER}+ 
 CALL_FUNCTION = %{LETTER}+
 IGNORE = [\n|\s|\t\r]
+IDENTIFIER = 
 
 %{
   StringBuilder string = new StringBuilder();  

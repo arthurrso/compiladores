@@ -20,7 +20,7 @@ parser code {:
 :};
 
 // terminais
-terminal INTERFACE, NEW, BREAK, CASE;
+terminal INTERFACE, BREAK, CASE;
 terminal CONTINUE, DEFAULT, IF, ELSE, FOR, RETURN, SWITCH;
 terminal IMPORT;
 terminal PACKAGE, BYTE;
@@ -85,7 +85,7 @@ type ::= BOOLEAN:bl 	{: RESULT = bl; :}
 	| STRING:s	{: RESULT = s; :};
 
 
-/* Variable Declaration - BEGIN */
+/* Variable Declaration - BEGIN <scope d - relational> */
 variable_declaration ::= type:t variable_declarators:v SEMICOLON
                                       {:RESULT = new Variable(v.toString(), null, t.toString(), v) ;
                                          System.out.println("Variable declareted: " + v);
@@ -111,7 +111,7 @@ variable_initializers ::= variable_initializers:v COMMA variable_initializer
 			   {:RESULT = v;:};
 variable_initializer ::= EQUAL expression:e {:RESULT = e;:}
 			| EQUAL LBRACE variable_initializers RBRACE | EQUAL LBRACE RBRACE;
-/* Variable Declaration - END */
+/* Variable Declaration - END <scope d - relational>*/
 
 /* Field Declaration - BEGIN */
 
@@ -144,12 +144,12 @@ numeric_expression ::= testing_expression:te {:RESULT = te;:}
 		| numeric_expression MODEQ testing_expression;
 
 testing_expression ::= logical_expression:le {:RESULT = le;:}
-		| testing_expression:e1 GREATER:g logical_expression:e2
-		| testing_expression:e1 LESS:l logical_expression:e2
-		| testing_expression:e1 GTEQ:g logical_expression:e2
-		| testing_expression:e1 LTEQ:l logical_expression:e2
-		| testing_expression EQEQ logical_expression
-		| testing_expression NOTEQ logical_expression;
+		| testing_expression:e1 GREATER:g logical_expression:e2 //scope d - relational
+		| testing_expression:e1 LESS:l logical_expression:e2 //scope d - relational
+		| testing_expression:e1 GTEQ:g logical_expression:e2 //scope d - relational
+		| testing_expression:e1 LTEQ:l logical_expression:e2 //scope d - relational
+		| testing_expression EQEQ logical_expression //scope d - relational
+		| testing_expression NOTEQ logical_expression; //scope d - relational
 
 logical_expression ::= bit_expression:be {:RESULT = be;:}
 		| NOT bit_expression
