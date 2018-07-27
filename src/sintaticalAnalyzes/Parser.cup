@@ -1,0 +1,364 @@
+package sintaticalAnalyzes;
+import java.io.*;
+import java_cup.runtime.*;
+
+
+parser code {: 
+  public Parser(Yylex lex) {
+    super(lex);
+  }
+  public static void main(String[] args)
+  {
+  	 try
+  	 {
+  	 		 Yylex scanner = new Yylex(new BufferedReader(new FileReader(args[0])));
+		 System.out.println("Start parsing \"" + args[0] + "\"...");
+	      
+	      // start parsing
+	      Parser p = new Parser(scanner);
+		 System.out.println("Nearing end \"" + args[0] + "\"...");
+	      Symbol s = p.debug_parse();
+  	 }
+  	 catch(Exception e)
+  	 {
+  	 	    e.printStackTrace();
+  	 }
+  }
+
+:};
+
+
+//	Identifiers
+
+terminal String identifier;
+
+//	Literals terminals
+
+terminal String int_lit, imaginary_lit, float_lit, rune_lit, string_lit;
+
+//	Literals Non-Terminals
+
+
+// Palavras Reservadas
+terminal breakd, defaultd, funcd, interfaced, select, cased, defer, go, map, struct, chan, elsed, gotod;
+terminal packaged, switchd, constd, fallthrough, ifd, range, type, continued, ford, importd, returnd, var;
+
+// Operators Literals
+
+terminal or_op, and_op;
+
+terminal equal_equal_op, not_equal_op, less_op, less_equal_op, greater_op, greater_equal_op;
+terminal plus_op, minus_op, pipe_op, pow_op, inter_op;
+
+terminal star_op, div_op, mod_op, left_shift_op, right_shift_op, amp_op, amp_pow_op;
+terminal not_op, chan_op;
+
+// Delimiters
+
+terminal open_brac, close_brac, open_square_brac, close_square_brac, open_curly_brac, close_curly_brac;
+terminal inc_op, short_ass, comma, semicolon, dec_op;
+terminal tri_dot, dot, colon;
+terminal equal;
+terminal inter;
+
+//	Operators Non-Terminals
+
+
+non terminal binary_op;
+non terminal unary_op, rel_op, add_op, mul_op; 
+non terminal assign_op;
+
+
+// Non-Terminals
+
+non terminal Type, TypeName, TypeLit, QualifiedIdent, ArrayType, StructType, PointerType;
+non terminal FunctionType, InterfaceType, SliceType, MapType, ChannelType;
+non terminal ArrayLength, Expression; 
+non terminal FieldDecl, IdentifierList, AnonymousField;
+non terminal Signature, Parameters, Result, ParameterList, ParameterDecl;
+non terminal MethodSpec, MethodName, InterfaceTypeName;
+non terminal KeyType;
+
+
+non terminal StatementList, Statement, Block;
+
+
+
+non terminal Declaration, ConstDecl, TypeDecl, VarDecl, TopLevelDecl, FunctionDecl, MethodDecl;
+non terminal ConstSpec, ExpressionList;
+non terminal TypeSpec;
+non terminal VarSpec;
+non terminal ShortVarDecl;
+non terminal FunctionName, Function, FunctionBody;
+non terminal Receiver;
+
+
+non terminal Operand, OperandName, MethodExpr, BasicLit, CompositeLit, FunctionLit, Literal; 
+non terminal PackageName;
+non terminal LiteralType, LiteralValue, ElementList, Element, Key, Value, FieldName, ElementIndex;
+non terminal PrimaryExpr;
+non terminal Conversion, Selector, Index, Slice, TypeAssertion, Arguments;
+non terminal ReceiverType;
+non terminal UnaryExpr;
+
+non terminal LabeledStmt, SimpleStmt, GoStmt, ReturnStmt, BreakStmt, ContinueStmt;
+non terminal GotoStmt, FallthroughStmt, IfStmt, SwitchStmt, SelectStmt, ForStmt, DeferStmt; 
+
+non terminal EmptyStmt, ExpressionStmt, SendStmt, IncDecStmt, Assignment;
+
+non terminal Label;
+
+non terminal Channel;
+
+non terminal ExprSwitchStmt, TypeSwitchStmt, ExprCaseClause, ExprSwitchCase;
+non terminal TypeSwitchGuard, TypeSwitchCase, TypeList, TypeCaseClause;
+
+non terminal Condition, ForClause, RangeClause, InitStmt, PostStmt;
+
+non terminal CommClause, CommCase, RecvStmt, RecvExpr;
+
+non terminal SourceFile, PackageClause, ImportDecl, ImportSpec, ImportPath; // TopLevelDecl, PackageName
+
+// Auxiliars Non-Terminals
+
+non terminal StructType_unnecessary_1, FieldDecl_unnecessary_1, FieldDecl_unnecessary_2, AnonymousField_unnecessary_1;
+non terminal Signature_unnecessary_1, Parameters_unnecessary_1, Parameters_unnecessary_2;
+non terminal ParameterList_unnecessary_1, ParameterDecl_unnecessary_1, ParameterDecl_unnecessary_2;
+non terminal InterfaceType_unnecessary_1, ChannelType_unnecessary_1;
+
+non terminal StatementList_unnecessary_1;
+
+non terminal ConstDecl_unnecessary_1, ConstDecl_unnecessary_2, ConstSpec_unnecessary_1, ConstSpec_unnecessary_2;
+non terminal IdentifierList_unnecessary_1, ExpressionList_unnecessary_1, TypeDecl_unnecessary_1, TypeDecl_unnecessary_2;
+non terminal VarDecl_unnecessary_1, VarDecl_unnecessary_2, VarSpec_unnecessary_1, VarSpec_unnecessary_2;
+non terminal FunctionDecl_unnecessary_1, MethodDecl_unnecessary_1;
+
+non terminal LiteralValue_unnecessary_1, LiteralValue_unnecessary_2, ElementList_unnecessary_1, Element_unnecessary_1;
+non terminal Slice_unnecessary_1, Slice_unnecessary_2, Slice_unnecessary_3;
+non terminal Arguments_unnecessary_1, Arguments_unnecessary_2, Arguments_unnecessary_3, Arguments_unnecessary_4, Arguments_unnecessary_5;
+
+non terminal Conversion_unnecessary_1;
+
+non terminal IncDecStmt_unnecessary_1, assign_op_unnecessary_1, IfStmt_unnecessary_1, IfStmt_unnecessary_2, IfStmt_unnecessary_3;
+non terminal ExprSwitchStmt_unnecessary_1, ExprSwitchStmt_unnecessary_2, ExprSwitchStmt_unnecessary_3;
+non terminal TypeCaseClause_unnecessary_1, TypeSwitchStmt_unnecessary_1, TypeSwitchStmt_unnecessary_2;
+non terminal TypeSwitchGuard_unnecessary_1, TypeSwitchGuard_unnecessary_2, TypeList_unnecessary_1, TypeList_unnecessary_2;
+non terminal CommClause_unnecessary_1;
+non terminal ForStmt_unnecessary_1, ForStmt_unnecessary_2, InitStmt_unnecessary_1, Condition_unnecessary_1, PostStmt_unnecessary_1;
+non terminal RangeClause_unnecessary_1, RangeClause_unnecessary_2, CommClause_unneccesary_1, CommCase_unncessary_1, RecvStmt_unncessary_1;
+non terminal ReturnStmt_unnecessary_1, Label_unnecessary_1;
+
+non terminal SourceFile_unnecessary_1, SourceFile_unnecessary_2, ImportDecl_unnecessary_1, ImportDecl_unnecessary_2, ImportSpec_unnecessary_1;
+
+non terminal QualifiedIdent_dash, IdentifierList_unnecessary_1_dash, SourceFile_unnecessary_1_dash, SourceFile_unnecessary_2_dash;
+non terminal ParameterList_unnecessary_1_dash, Operand_unnecessary_1_dash, ExpressionList_unnecessary_1_dash;
+
+non terminal Expression_unneccessary_1_dash, SimpleStmt_unnecessary_1;
+
+non terminal B, C;
+
+non terminal Func_call, Func_call_ass;
+
+// OBS: Precedence
+
+/*
+	Precedence    Operator
+    5             *  /  %  <<  >>  &  &^
+    4             +  -  |  ^
+    3             ==  !=  <  <=  >  >=
+    2             &&
+    1             ||
+ */
+
+precedence left or_op;
+precedence left and_op;
+precedence left equal_equal_op, not_equal_op, less_op, less_equal_op, greater_op, greater_equal_op;
+precedence left plus_op, minus_op, pipe_op, pow_op, inter_op;
+precedence left star_op, div_op, mod_op, left_shift_op, right_shift_op, and_op, amp_pow_op;
+precedence nonassoc equal;
+
+
+//	Start
+
+start with SourceFile;
+
+// Type Rules
+
+Type      ::= TypeName | TypeLit | open_brac Type close_brac;
+// TypeName ::= QualifiedIdent | identifier;
+TypeName  ::= B | C; // QualifiedIdent
+B ::= C dot identifier;
+C ::= identifier;
+TypeLit   ::= ArrayType | PointerType | FunctionType;// | SliceType ; //  StructType 
+
+ArrayType   ::= open_square_brac ArrayLength close_square_brac Type;
+ArrayLength ::= Expression;
+
+
+PointerType ::= star_op Type;
+
+Func_call ::= TypeName open_brac close_brac | TypeName open_brac ExpressionList  close_brac;
+
+FunctionType   ::= funcd Signature;
+Signature      ::= Parameters Parameters | Parameters Type | Parameters;
+
+Parameters     ::= open_brac ParameterList comma close_brac | open_brac ParameterList close_brac | open_brac close_brac;
+
+ParameterList  ::= ParameterDecl ParameterList_unnecessary_1;
+ParameterList_unnecessary_1 ::= ParameterList_unnecessary_1 comma ParameterDecl | ;
+
+ParameterDecl  ::= IdentifierList Type | Type; // | IdentifierList tri_dot Type | tri_dot Type 
+
+
+//	Block Rules
+
+Block  ::= open_curly_brac StatementList close_curly_brac ;
+StatementList ::= StatementList_unnecessary_1 ;
+StatementList_unnecessary_1	::= StatementList_unnecessary_1 Statement semicolon | ;
+
+//	Dclr Scope
+
+TopLevelDecl  ::= FunctionDecl | Declaration  ;
+
+
+FunctionDecl ::= funcd identifier FunctionDecl_unnecessary_1;
+FunctionDecl_unnecessary_1 ::= Function | Signature;
+Function     ::= Signature FunctionBody;
+FunctionBody ::= Block;
+
+Declaration   ::= ConstDecl | VarDecl;
+ConstDecl      ::= constd ConstDecl_unnecessary_2;
+ConstDecl_unnecessary_1 ::= ConstDecl_unnecessary_1 ConstSpec semicolon | ;
+ConstDecl_unnecessary_2 ::= ConstSpec | open_brac ConstDecl_unnecessary_1 close_brac;
+ConstSpec      ::= IdentifierList ConstSpec_unnecessary_2; //*******DOUBT "="
+ConstSpec_unnecessary_1 ::=  Type | ;
+ConstSpec_unnecessary_2 ::= ConstSpec_unnecessary_1 equal ExpressionList | ;
+
+IdentifierList ::= identifier IdentifierList_unnecessary_1;
+IdentifierList_unnecessary_1 ::= comma IdentifierList | ;
+
+
+ExpressionList ::= Expression ExpressionList_unnecessary_1;
+ExpressionList_unnecessary_1 ::= ExpressionList_unnecessary_1 comma Expression | ;
+
+
+VarDecl     ::= var VarDecl_unnecessary_2;
+VarDecl_unnecessary_1 ::= VarDecl_unnecessary_1 VarSpec semicolon | ;
+VarDecl_unnecessary_2 ::= VarSpec | open_brac VarDecl_unnecessary_1 close_brac;
+VarSpec     ::= IdentifierList VarSpec_unnecessary_2; //************DOUBT "="
+VarSpec_unnecessary_1 ::= equal ExpressionList | ;
+VarSpec_unnecessary_2 ::= Type VarSpec_unnecessary_1 | equal ExpressionList;
+
+
+//	Expression Rules
+
+Operand     ::= BasicLit | ArrayType LiteralValue | TypeName LiteralValue | TypeName | open_brac Expression close_brac;
+
+BasicLit    ::= int_lit | float_lit | imaginary_lit | rune_lit | string_lit;
+ 
+LiteralValue  ::= open_curly_brac LiteralValue_unnecessary_2 close_curly_brac;
+LiteralValue_unnecessary_1 ::= comma | ;
+LiteralValue_unnecessary_2 ::= ElementList LiteralValue_unnecessary_1 | ;
+
+ElementList   ::= Element ElementList_unnecessary_1;
+ElementList_unnecessary_1 ::= ElementList_unnecessary_1 comma Element | ;
+
+Element       ::= identifier colon Value | Expression colon Value | Value;
+
+Value         ::= Expression | LiteralValue;
+
+
+PrimaryExpr ::=
+	Operand |
+
+	PrimaryExpr Selector |
+	PrimaryExpr Index;
+
+Selector       ::= dot identifier ;
+Index          ::= open_square_brac Expression close_square_brac;
+
+
+
+//	Operators
+
+
+Expression ::= UnaryExpr Expression_unneccessary_1_dash;
+Expression_unneccessary_1_dash ::= binary_op UnaryExpr Expression_unneccessary_1_dash | ;
+UnaryExpr  ::= PrimaryExpr | unary_op UnaryExpr;
+
+binary_op  ::= or_op | and_op | rel_op | add_op | mul_op;
+rel_op     ::= equal_equal_op | not_equal_op | less_op | less_equal_op | greater_op | greater_equal_op; // "==" | "!=" | "<" | "<=" | ">" | ">="
+add_op     ::= plus_op | minus_op | pipe_op | pow_op | inter_op; // "+" | "-" | "|" | "^"
+mul_op     ::= star_op | div_op | mod_op | left_shift_op | right_shift_op | amp_op | amp_pow_op; // "*" | "/" | "%" | "<<" | ">>" | "&" | "&^"
+unary_op   ::= plus_op | minus_op | not_op | pow_op | star_op | amp_op | inter_op; // "+" | "-" | "!" | "^" | "*" | "&" | "<-"
+
+
+// 	 Statements Rules 
+
+Statement ::=
+	Declaration | SimpleStmt | Func_call | 
+	ReturnStmt | BreakStmt | ContinueStmt | GotoStmt | LabeledStmt |
+	 Block | IfStmt | SwitchStmt | ForStmt | 
+    error {: System.out.println("ERROR"); :};
+
+
+SimpleStmt ::= Expression SimpleStmt_unnecessary_1 | ;
+SimpleStmt_unnecessary_1 ::=  ElementList_unnecessary_1 assign_op ExpressionList | IncDecStmt_unnecessary_1 | ;
+
+
+IncDecStmt_unnecessary_1 ::= inc_op | dec_op ;
+
+assign_op ::= assign_op_unnecessary_1 equal;
+assign_op_unnecessary_1 ::= add_op | mul_op | ;
+IfStmt ::= ifd SimpleStmt semicolon Expression Block elsed IfStmt | ifd SimpleStmt semicolon Expression Block elsed Block |  ifd SimpleStmt semicolon Expression Block 
+		|  ifd Expression Block elsed IfStmt |  ifd Expression Block elsed Block |  ifd Expression Block ;
+
+//	Switch Statements
+SwitchStmt ::= ExprSwitchStmt;
+
+ExprSwitchStmt ::= switchd SimpleStmt semicolon Expression open_curly_brac ExprSwitchStmt_unnecessary_3 close_curly_brac
+				|  switchd Expression open_curly_brac ExprSwitchStmt_unnecessary_3 close_curly_brac
+				|  switchd open_curly_brac ExprSwitchStmt_unnecessary_3 close_curly_brac
+				|  switchd SimpleStmt semicolon open_curly_brac ExprSwitchStmt_unnecessary_3 close_curly_brac;
+
+ExprSwitchStmt_unnecessary_3 ::= ExprSwitchStmt_unnecessary_3 ExprCaseClause | ;
+ExprCaseClause ::= cased ExpressionList colon StatementList | defaultd colon StatementList ;
+
+//	For Statements
+
+ForStmt ::= ford ForStmt_unnecessary_1 Block | ford Block;
+ForStmt_unnecessary_1 ::= Expression | ForClause;
+
+ForClause ::= SimpleStmt semicolon Condition_unnecessary_1 semicolon SimpleStmt;
+Condition_unnecessary_1 ::= Expression | ;
+
+//	Return Statements
+ReturnStmt ::= returnd ExpressionList | returnd ;
+
+// Break Statements
+BreakStmt ::=  breakd identifier | breakd; 
+ 
+//	Labels Statements
+LabeledStmt ::= identifier colon Statement;
+GotoStmt ::= gotod identifier;
+
+ContinueStmt ::= continued identifier | continued; // continued Label |
+
+
+// Packages (Regras)
+
+SourceFile ::= PackageClause semicolon SourceFile_unnecessary_1 SourceFile_unnecessary_2;
+SourceFile_unnecessary_1 ::= SourceFile_unnecessary_1_dash;
+SourceFile_unnecessary_1_dash ::= ImportDecl semicolon SourceFile_unnecessary_1_dash | ;
+SourceFile_unnecessary_2 ::= SourceFile_unnecessary_2_dash;
+SourceFile_unnecessary_2_dash ::= TopLevelDecl semicolon SourceFile_unnecessary_2_dash | ;
+PackageClause ::= packaged identifier;
+
+// Imports
+ImportDecl ::= importd ImportDecl_unnecessary_2;
+ImportDecl_unnecessary_1 ::= ImportDecl_unnecessary_1 ImportSpec semicolon | ;
+ImportDecl_unnecessary_2 ::= ImportSpec | open_brac ImportDecl_unnecessary_1 close_brac;
+ImportSpec ::= dot string_lit| identifier string_lit|  string_lit;
+
+
+
